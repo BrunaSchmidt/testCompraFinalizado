@@ -34,14 +34,23 @@ public class TesteEfetuaCompra {
         navegador.findElement(By.id("create-account_form")).findElement(By.id("email_create")).sendKeys("tulipa0007@hotmail.com");
         navegador.findElement(By.name("SubmitCreate")).click();
 
-        //Preenche form
-        navegador.findElement(By.id("id_gender2")).isSelected();
+        //Personal information form
+        navegador.findElement(By.id("id_gender2")).click();
         navegador.findElement(By.id("account-creation_form")).findElement(By.id("customer_firstname")).sendKeys("Tulipa");
         navegador.findElement(By.id("account-creation_form")).findElement(By.id("customer_lastname")).sendKeys("Santos");
         navegador.findElement(By.id("account-creation_form")).findElement(By.id("passwd")).sendKeys("tulipinha0007");
         navegador.findElement(By.id("account-creation_form")).findElement(By.id("days")).sendKeys("12");
         navegador.findElement(By.id("account-creation_form")).findElement(By.id("months")).sendKeys("November");
         navegador.findElement(By.id("account-creation_form")).findElement(By.id("years")).sendKeys("1991");
+        navegador.findElement(By.id("account-creation_form")).findElement(By.id("newsletter")).click();
+        navegador.findElement(By.id("account-creation_form")).findElement(By.id("optin")).click();
+
+        //Address form
+        navegador.findElement(By.id("account-creation_form")).findElement(By.id("optin")).click();
+        navegador.findElement(By.id("account-creation_form")).findElement(By.id("optin")).click();
+        navegador.findElement(By.id("account-creation_form")).findElement(By.id("optin")).click();
+        navegador.findElement(By.id("account-creation_form")).findElement(By.id("optin")).click();
+
 
 
         //navegador.quit();
