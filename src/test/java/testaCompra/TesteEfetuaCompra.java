@@ -7,18 +7,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.Select;
-
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class TesteEfetuaCompra {
-    @Test
 
+
+    public WebDriver navegador;
+    @Test
     public void TestaAcesso(){
 
         System.setProperty("webdriver.chrome.driver", "/home/bruna/SeleniumJars/chromedriver");
-        WebDriver navegador = new ChromeDriver();
+        navegador = new ChromeDriver();
         navegador.manage().timeouts().implicitlyWait(5, TimeUnit.MINUTES);
 
         navegador.get("http://www.automationpractice.com");
@@ -28,22 +29,19 @@ public class TesteEfetuaCompra {
         navegador.findElement(By.id("add_to_cart")).click();
         navegador.findElement(By.linkText("Proceed to checkout")).click();
 
+        //test products quantity
         String cart = navegador.findElement(By.id("summary_products_quantity")).getText();
-
         assertEquals("1 Product", cart);
 
         navegador.findElement(By.linkText("Proceed to checkout")).click();
 
-
-        //dispara o if
-
-
+        //if test
         String textoAlerta;
         textoAlerta = navegador.findElement(By.cssSelector(".alert.alert-danger")).getText();
 
-        //testando se conta existe
+        //account test
         if(textoAlerta != null){
-
+            //login
             navegador.findElement(By.id("login_form")).findElement(By.id("email")).sendKeys(
                     "tulipa0007@hotmail.com");
             navegador.findElement(By.id("passwd")).sendKeys("tulipinha0007");
@@ -81,8 +79,8 @@ public class TesteEfetuaCompra {
             navegador.findElement(By.id("account-creation_form")).findElement(By.id("optin")).click();
 
             //Address form
-            //navegador.findElement(By.id("account-creation_form")).findElement(By.id("firstname")).click();
-            // navegador.findElement(By.id("account-creation_form")).findElement(By.id("lastname")).click();
+            navegador.findElement(By.id("account-creation_form")).findElement(By.id("firstname")).click();
+            navegador.findElement(By.id("account-creation_form")).findElement(By.id("lastname")).click();
 
             navegador.findElement(By.id("account-creation_form")).findElement(By.id("company")).sendKeys(
                     "Empresa");
@@ -107,7 +105,11 @@ public class TesteEfetuaCompra {
                     "Rua das Gaivotas");
             navegador.findElement(By.id("account-creation_form")).findElement(By.id("submitAccount")).click();
 
-            //acrescentar comandos que após criar cadastro ao voltar a tela deve apenas logar
+            //logar
+            navegador.findElement(By.id("login_form")).findElement(By.id("email")).sendKeys(
+                    "tulipa0007@hotmail.com");
+            navegador.findElement(By.id("passwd")).sendKeys("tulipinha0007");
+            navegador.findElement(By.id("SubmitLogin")).click();
 
         }
 
@@ -123,50 +125,29 @@ public class TesteEfetuaCompra {
         navegador.findElement(By.id("cgv")).click();
         navegador.findElement(By.name("processCarrier")).click();
 
-        //validar valor da compra (não esta somando corretmente para comparar com o tottal
-
+        //conferindo valor da compra
         String totalProducts = navegador.findElement(By.id("total_product")).getText().replace("$","");
-        System.out.println("resultado: " + totalProducts);
-
-       // int vTotalProducts = Integer.parseInt(totalProducts);
+        double dTotalProducts = Double.parseDouble(totalProducts);
 
         String totalShiping = navegador.findElement(By.id("total_shipping")).getText().replace("$","");
-        System.out.println("resultado: " + totalShiping);
+        double dTotalShiping = Double.parseDouble(totalShiping);
 
-        String total = totalProducts + totalShiping;
-        System.out.println("resultado: " + total);
-
-        //int vTotalShiping = Integer.parseInt(totalShiping);
-
-
-        /*
+        double total = dTotalProducts + dTotalShiping;
 
         String valueTotal = navegador.findElement(By.id("total_price")).getText().replace("$","");
-        int vValueTotal = Integer.parseInt(valueTotal);
+        double dValueTotal = Double.parseDouble(valueTotal);
 
 
-        int total= vTotalProducts + vTotalShiping;
+        assertEquals(total,dValueTotal,total);
 
-        System.out.println(total);
-
-        if (total == vValueTotal){
-
-        System.out.println("entrou no if");
-
-        }else{
+        navegador.findElement(By.cssSelector("p.payment_module a.bankwire")).click();
+        navegador.findElement(By.cssSelector(".cart_navigation .button-medium")).click();
 
 
-        }*/
+        String finalMessage = navegador.findElement(By.className("dark")).getText();
+        finalMessage.contains("complete");
 
-
-
-
-
-
-
-
-
-
+        navegador.quit();
 
     }
 
