@@ -3,12 +3,9 @@ package testaCompra;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.Select;
 import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.*;
 
 public class TesteEfetuaCompra {
@@ -39,8 +36,9 @@ public class TesteEfetuaCompra {
         String textoAlerta;
         textoAlerta = navegador.findElement(By.cssSelector(".alert.alert-danger")).getText();
 
-        //account test
+
         if(textoAlerta != null){
+
             //login
             navegador.findElement(By.id("login_form")).findElement(By.id("email")).sendKeys(
                     "tulipa0007@hotmail.com");
