@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 
 public class TesteEfetuaCompra {
 
-
     WebDriver driver;
     @Test
     public void OpenBrowser(){
@@ -34,6 +33,7 @@ public class TesteEfetuaCompra {
 
 
         //Create login
+        //modificar e-mail cada vez que rodar o teste
         driver.findElement(By.id("create-account_form")).findElement(By.id("email_create")).sendKeys(
                 "tulipa00700@hotmail.com");
         driver.findElement(By.name("SubmitCreate")).click();
